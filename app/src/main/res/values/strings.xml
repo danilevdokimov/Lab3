@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Lab3</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="main_label">Meetings</string>
+    <string name="new_meeting_menu_title">New meeting</string>
+    <string name="find_meeting_menu_title">Find meeting</string>
+    <string name="about_menu_title">About</string>
+    <string name="exit_menu_title">Exit</string>
+    <string name="title_activity_meeting_info">Meeting info</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_new_meeting">New meeting</string>
+    <string name="dialog_title">New particpant</string>
+    <string name="btn_add_txt">Add</string>
+    <string name="btn_cancel_txt">Cancel</string>
+    <string name="warning">Fio and post must be filled</string>
+</resources>

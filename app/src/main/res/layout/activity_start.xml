@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context="com.danil.asus.lab3.StartActivity">
+
+    <TextView
+        android:id="@+id/tv_fio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/et_fio"
+        android:text="Fio"
+        android:textSize="25dp"
+        />
+
+    <EditText
+        android:id="@+id/et_fio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_fio"
+        android:layout_toEndOf="@+id/tv_passord"/>
+
+    <TextView
+        android:id="@+id/tv_passord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_password"
+        android:layout_alignParentStart="true"
+        android:text="Password"
+        android:textSize="25dp"/>
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/et_post"
+        android:layout_below="@+id/tv_post"/>
+
+    <Button
+        android:id="@+id/btn_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_passord"
+        android:layout_marginTop="61dp"
+        android:layout_toEndOf="@+id/tv_post"
+        android:text="Enter"/>
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_enter"
+        android:layout_marginLeft="64dp"
+        android:layout_marginStart="45dp"
+        android:layout_toEndOf="@+id/btn_enter"
+        android:text="Exit"/>
+
+    <EditText
+        android:id="@+id/et_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/et_fio"
+        android:layout_below="@+id/et_fio"/>
+
+    <TextView
+        android:id="@+id/tv_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_post"
+        android:layout_alignParentStart="true"
+        android:text="Post"
+        android:textSize="25dp"/>
+
+</RelativeLayout>
