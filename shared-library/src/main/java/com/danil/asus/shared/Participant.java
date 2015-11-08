@@ -30,4 +30,23 @@ public class Participant {
     public void setPost(String post) {
         this.post = post;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Participant that = (Participant) o;
+
+        if (fio != null ? !fio.equals(that.fio) : that.fio != null) return false;
+        return !(post != null ? !post.equals(that.post) : that.post != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fio != null ? fio.hashCode() : 0;
+        result = 31 * result + (post != null ? post.hashCode() : 0);
+        return result;
+    }
 }

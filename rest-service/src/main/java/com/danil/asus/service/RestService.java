@@ -2,11 +2,11 @@ package com.danil.asus.service;
 
 import com.danil.asus.shared.Meeting;
 import com.danil.asus.shared.Participant;
+import com.danil.asus.shared.service.RestApi;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class RestService implements RestApi {
 

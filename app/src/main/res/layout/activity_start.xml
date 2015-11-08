@@ -12,19 +12,19 @@
         android:id="@+id/tv_fio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/et_fio"
         android:text="Fio"
         android:textSize="25dp"
-        />
+        android:layout_alignBottom="@+id/et_fio"
+        android:layout_alignParentStart="true"/>
 
     <EditText
         android:id="@+id/et_fio"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_fio"
-        android:layout_toEndOf="@+id/tv_passord"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/btn_exit"
+        android:layout_alignStart="@+id/et_post"/>
 
     <TextView
         android:id="@+id/tv_passord"
@@ -32,16 +32,16 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/et_password"
         android:layout_alignParentStart="true"
-        android:text="Password"
+        android:text="Password "
         android:textSize="25dp"/>
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_post"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/et_post"
-        android:layout_below="@+id/tv_post"/>
+        android:layout_toEndOf="@+id/tv_passord"/>
 
     <Button
         android:id="@+id/btn_enter"
@@ -66,17 +66,17 @@
         android:id="@+id/et_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/et_fio"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/et_fio"
-        android:layout_below="@+id/et_fio"/>
+        android:layout_alignStart="@+id/et_password"/>
 
     <TextView
         android:id="@+id/tv_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/et_post"
-        android:layout_alignParentStart="true"
         android:text="Post"
-        android:textSize="25dp"/>
+        android:textSize="25dp"
+        android:layout_alignBottom="@+id/et_post"
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

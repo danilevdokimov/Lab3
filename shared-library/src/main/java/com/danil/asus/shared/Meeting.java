@@ -1,5 +1,6 @@
 package com.danil.asus.shared;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -10,17 +11,18 @@ public class Meeting {
     private Date startDate;
     private Date endDate;
     private Collection<Participant> participants;
-    private int priority;
+    private String priority;
 
-    public static final int URGENT_PRIORITY = 1;
-    public static final int PLANNED_PRIORITY = 2;
-    public static final int POSSIBLE_PRIORITY = 3;
+    public static final String URGENT_PRIORITY = "Urgent";
+    public static final String PLANNED_PRIORITY = "Planned";
+    public static final String POSSIBLE_PRIORITY = "Possible";
 
 
     public Meeting() {
+        participants = new ArrayList<>();
     }
 
-    public Meeting(String title, String description, Date startDate, Date endDate, int priority) {
+    public Meeting(String title, String description, Date startDate, Date endDate, String priority) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -29,7 +31,7 @@ public class Meeting {
         participants = Collections.emptyList();
     }
 
-    public Meeting(String title, String description, Date startDate, Date endDate, int priority,
+    public Meeting(String title, String description, Date startDate, Date endDate, String priority,
                    Collection<Participant> participants) {
         this.title = title;
         this.description = description;
@@ -37,6 +39,15 @@ public class Meeting {
         this.endDate = endDate;
         this.priority = priority;
         this.participants = participants;
+    }
+
+    public String getParticipantsAsString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Participant participant : participants) {
+            stringBuilder.append(participant.getFio()).append(" (").append(participant.getPost()).append(")")
+                    .append("; ");
+        }
+        return stringBuilder.toString();
     }
 
     public void addParticipant(Participant participant) {
@@ -87,11 +98,11 @@ public class Meeting {
         this.participants = participants;
     }
 
-    public int getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 }

@@ -15,4 +15,23 @@
     <string name="btn_add_txt">Add</string>
     <string name="btn_cancel_txt">Cancel</string>
     <string name="warning">Fio and post must be filled</string>
+    <string name="update_menu_title">Update meetings</string>
+    <string name="already_massage">You already accept meeting</string>
+    <string name="remove_dialog_title">Remove meeting</string>
+    <string name="remove_massage">Do you want remove this meeting?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="find_dialog_title">Find meeting</string>
+    <string name="btn_find">Find</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="not_fill_fields">Fill in all the fields</string>
+    <string name="about_title">About</string>
+    <string name="about_message">Lab: 3\nUser: Danil Evdokimov\nGroup: 6122\nUniversity: SSAU</string>
+    <string name="exit_title">Exit</string>
+    <string name="exit_message">Are your sure you want to exit?</string>
+    <string-array name="priority_list">
+        <item>Planned</item>
+        <item>Possible</item>
+        <item>Urgent</item>
+    </string-array>
 </resources>

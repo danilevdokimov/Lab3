@@ -1,4 +1,4 @@
-package com.danil.asus.service;
+package com.danil.asus.shared.service;
 
 import com.danil.asus.shared.Meeting;
 import com.danil.asus.shared.Participant;

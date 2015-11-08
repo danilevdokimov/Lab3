@@ -4,9 +4,11 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 
 import com.danil.asus.shared.gson.GsonHelper;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -18,6 +20,7 @@ public abstract class AbstractRequestTask<T, E, K> extends AsyncTask<T, E, K> {
     private static final String SERVER_URL = "http://192.168.1.166:8585/rest-service/Server";
     private static final String EMPTY_BODY = "";
 
+    protected Type dataType;
     protected AppCompatActivity activity;
 
     public AbstractRequestTask(AppCompatActivity activity) {
@@ -36,7 +39,7 @@ public abstract class AbstractRequestTask<T, E, K> extends AsyncTask<T, E, K> {
         connection.setRequestMethod(requestType);
         if (!EMPTY_BODY.equals(body)) {
             connection.setDoOutput(true);
-            GsonHelper.write(body, connection.getOutputStream());
+            connection.getOutputStream().write(body.getBytes());
         }
         return connection;
     }

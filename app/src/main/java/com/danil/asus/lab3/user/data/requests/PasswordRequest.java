@@ -26,7 +26,7 @@ public class PasswordRequest extends AbstractRequestTask<String, Void, ServiceRe
 
     @Override
     protected ServiceResponse doInBackground(String... params) {
-        String userPassword = params[0];
+        String userPassword = params[0].replace(" ", "+");
         try {
             HttpURLConnection connection = getConnection("?query=authentication&password=" + userPassword, "GET");
             return handleResponse(connection.getInputStream());
@@ -39,12 +39,11 @@ public class PasswordRequest extends AbstractRequestTask<String, Void, ServiceRe
     @Override
     protected void onPostExecute(ServiceResponse response) {
         if (response.getStatus().equals(ServiceResponse.SUCCESS)) {
-            ((StartActivity)activity).saveUserData();
-            ((StartActivity)activity).showMeetings();
+            ((StartActivity) activity).saveUserData();
+            ((StartActivity) activity).showMeetings();
         } else {
             Toast.makeText(activity, response.getMassage(), Toast.LENGTH_SHORT).show();
         }
-        super.onPostExecute(response);
     }
 
     @Override
