@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.danil.asus.lab3.user.data.requests.NewMeetingRequest;
+import com.danil.asus.lab3.user.data.requests.impl.NewMeetingRequest;
 import com.danil.asus.shared.Meeting;
 import com.danil.asus.shared.Participant;
 

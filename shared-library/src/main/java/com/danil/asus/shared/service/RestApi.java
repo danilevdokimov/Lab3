@@ -29,5 +29,5 @@ public interface RestApi {
 
     Meeting getMeetingByDescriptionFragment(String fragment);
 
-    boolean checkPassord(String userPassword);
+    boolean checkPassword(String userPassword);
 }

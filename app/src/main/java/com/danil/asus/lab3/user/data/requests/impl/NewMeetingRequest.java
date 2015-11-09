@@ -1,26 +1,29 @@
-package com.danil.asus.lab3.user.data.requests;
+package com.danil.asus.lab3.user.data.requests.impl;
 
 import android.content.Intent;
-import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.danil.asus.lab3.MainActivity;
-import com.danil.asus.shared.Participant;
+import com.danil.asus.lab3.user.data.requests.AbstractRequestTask;
+import com.danil.asus.shared.Meeting;
 import com.danil.asus.shared.gson.GsonHelper;
+import com.danil.asus.shared.service.RestApi;
 import com.danil.asus.shared.service.ServiceResponse;
 import com.google.gson.JsonParseException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by Asus on 11/3/2015.
+ * Created by Asus on 11/8/2015.
  */
-public class AcceptRequest extends AbstractRequestTask<Object, Void, ServiceResponse> {
-    public AcceptRequest(AppCompatActivity activity) {
+public class NewMeetingRequest extends AbstractRequestTask<Meeting, Void, ServiceResponse> {
+    public NewMeetingRequest(AppCompatActivity activity) {
         super(activity);
     }
 
@@ -38,12 +41,11 @@ public class AcceptRequest extends AbstractRequestTask<Object, Void, ServiceResp
     }
 
     @Override
-    protected ServiceResponse doInBackground(Object... params) {
-        String meetingTitle = ((String) params[0]).replace(" ", "+");
-        Participant currentUser = (Participant) params[1];
+    protected ServiceResponse doInBackground(Meeting... params) {
+        Meeting newMeeting = params[0];
         try {
-            HttpURLConnection connection = getConnection("?query=accept&title=" + meetingTitle, "PUT",
-                    GsonHelper.toJson(currentUser));
+            HttpURLConnection connection = getConnection(RestApi.CREATE_MEETING, new HashMap<String, String>(), "PUT",
+                    GsonHelper.toJson(newMeeting));
             return handleResponse(connection.getInputStream());
         } catch (IOException e) {
             Log.i("Lab3", "Connection error", e);
@@ -53,11 +55,10 @@ public class AcceptRequest extends AbstractRequestTask<Object, Void, ServiceResp
 
     @Override
     protected void onPostExecute(ServiceResponse response) {
+        showToast(response.getMassage());
         if (response.getStatus().equals(ServiceResponse.SUCCESS)) {
             Intent intent = new Intent(activity, MainActivity.class);
             activity.startActivity(intent);
-        } else {
-            Toast.makeText(activity, response.getMassage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

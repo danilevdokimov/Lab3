@@ -4,6 +4,8 @@ import com.danil.asus.shared.Meeting;
 import com.danil.asus.shared.Participant;
 import com.danil.asus.shared.service.RestApi;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +22,20 @@ public class RestService implements RestApi {
 
     @Override
     public Collection<String> getMeetings() {
-        return meetings.keySet();
+        Calendar todayStart = Calendar.getInstance();
+        todayStart.set(Calendar.HOUR_OF_DAY, 0);
+        todayStart.set(Calendar.MINUTE, 0);
+        Calendar todayEnd = Calendar.getInstance();
+        todayEnd.set(Calendar.HOUR_OF_DAY, 23);
+        todayEnd.set(Calendar.MINUTE, 59);
+        Collection<String> dayMeetings = new ArrayList<>();
+        for (Meeting meeting : meetings.values()) {
+            if (meeting.getStartDate().after(todayStart.getTime())
+                    && meeting.getStartDate().before(todayEnd.getTime())) {
+                dayMeetings.add(meeting.getTitle());
+            }
+        }
+        return dayMeetings;
     }
 
     @Override
@@ -59,7 +74,7 @@ public class RestService implements RestApi {
     }
 
     @Override
-    public boolean checkPassord(String userPassword) {
+    public boolean checkPassword(String userPassword) {
         return PASSWORD.equals(userPassword);
     }
 }

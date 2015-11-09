@@ -29,7 +29,7 @@ public class Server extends HttpServlet {
         switch (query) {
             case RestApi.AUTHENTICATION:
                 String userPassword = req.getParameter("password");
-                boolean result = restService.checkPassord(userPassword);
+                boolean result = restService.checkPassword(userPassword);
                 ServiceResponse response;
                 if (result) {
                     response = new ServiceResponse(ServiceResponse.SUCCESS, "Success connect");

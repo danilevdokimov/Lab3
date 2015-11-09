@@ -9,10 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.danil.asus.lab3.user.data.UserData;
-import com.danil.asus.lab3.user.data.requests.AcceptRequest;
-import com.danil.asus.lab3.user.data.requests.FindRequest;
-import com.danil.asus.lab3.user.data.requests.MeetingRequest;
-import com.danil.asus.lab3.user.data.requests.RemoveRequest;
+import com.danil.asus.lab3.user.data.requests.impl.AcceptRequest;
+import com.danil.asus.lab3.user.data.requests.impl.FindRequest;
+import com.danil.asus.lab3.user.data.requests.impl.MeetingRequest;
+import com.danil.asus.lab3.user.data.requests.impl.RemoveRequest;
 import com.danil.asus.shared.Meeting;
 import com.danil.asus.shared.Participant;
 

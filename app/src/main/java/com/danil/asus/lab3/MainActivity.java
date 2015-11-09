@@ -8,16 +8,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.danil.asus.lab3.user.data.requests.MeetingsRequest;
+import com.danil.asus.lab3.user.data.requests.impl.MeetingsRequest;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 showFindDialog();
                 break;
             case R.id.update:
+                updateMeetings();
                 break;
             case R.id.about:
                 showAboutDialog();
