@@ -3,6 +3,9 @@
     package="com.danil.asus.lab3"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,8 +32,20 @@
             android:name=".NewMeetingActivity"
             android:label="@string/title_activity_new_meeting">
         </activity>
+
+        <receiver
+            android:name=".service.UpdateBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/receiver_label">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.UpdateService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 </manifest>
