@@ -3,6 +3,7 @@ package com.danil.asus.lab3;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class StartActivity extends AppCompatActivity {
     private EditText mUserFio;
     private EditText mUserPost;
     private EditText mPassword;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,9 @@ public class StartActivity extends AppCompatActivity {
         mUserFio = (EditText) findViewById(R.id.et_fio);
         mUserPost = (EditText) findViewById(R.id.et_post);
         mPassword = (EditText) findViewById(R.id.et_password);
+        sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE);
+        mUserFio.setText(sharedPreferences.getString(Constants.USER_FIO_PREF, ""));
+        mUserPost.setText(sharedPreferences.getString(Constants.USER_POST_PREF, ""));
         findViewById(R.id.btn_enter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,8 +47,6 @@ public class StartActivity extends AppCompatActivity {
                 showExitDialog();
             }
         });
-        //startService(new Intent(this, UpdateService.class));
-        //stopService(new Intent(this, UpdateService.class));
     }
 
     private void showExitDialog() {
@@ -76,10 +79,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void saveUserData() {
-        String userFio = mUserFio.getText().toString();
-        String userPost = mUserPost.getText().toString();
-        UserData.setUserFio(userFio);
-        UserData.setUserPost(userPost);
+        sharedPreferences.edit().putString(Constants.USER_FIO_PREF, mUserFio.getText().toString())
+                .putString(Constants.USER_POST_PREF, mUserPost.getText().toString()).commit();
     }
 
     public void showMeetings() {

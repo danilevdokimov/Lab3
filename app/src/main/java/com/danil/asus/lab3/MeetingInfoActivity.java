@@ -2,6 +2,7 @@ package com.danil.asus.lab3;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,12 +19,15 @@ import com.danil.asus.shared.Participant;
 
 public class MeetingInfoActivity extends AppCompatActivity {
     private Meeting currentMeeting;
-    private Participant currentUser = new Participant(UserData.getUserFio(), UserData.getUserPost());
+    private Participant currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_info);
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREFERENCES, MODE_PRIVATE);
+        currentUser = new Participant(sharedPreferences.getString(Constants.USER_FIO_PREF, ""),
+                sharedPreferences.getString(Constants.USER_POST_PREF, ""));
         String title = getIntent().getStringExtra("title");
         if (title != null) {
             MeetingRequest meetingRequest = new MeetingRequest(this);
