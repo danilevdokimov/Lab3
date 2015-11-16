@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.danil.asus.lab3.user.data.UserData;
 import com.danil.asus.lab3.user.data.requests.impl.AcceptRequest;
 import com.danil.asus.lab3.user.data.requests.impl.FindRequest;
 import com.danil.asus.lab3.user.data.requests.impl.MeetingRequest;

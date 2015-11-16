@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -43,31 +44,50 @@ public class MeetingsServiceRequest extends MeetingsRequest {
             HttpURLConnection connection = getConnection(RestApi.GET_MEETINGS, new HashMap<String, String>(), "GET");
             ServiceResponse<List<String>> response = handleResponse(connection.getInputStream());
             if (response.getStatus().equals(ServiceResponse.SUCCESS)) {
-                List<String> actualMeetings = service.getActualMeetings();
                 List<String> serverMeetings = response.getData();
-                if (serverMeetings.size() == actualMeetings.size()) {
-                    for (String meeting : actualMeetings) {
-                        if (!serverMeetings.contains(meeting)) {
-                            // TODO: 11/10/2015 notify
-                            notifyUser();
-                            service.setActualMeetings(serverMeetings);
-                            break;
-                        }
-                    }
-                } else {
-                    // TODO: 11/10/2015 notify
-                    notifyUser();
+                if (service.getActivityLink() != null) {
+                    Log.i(Constants.LOG_TAG, "Execute service request for activity");
+                    service.getActivityLink().send(service, Constants.MEETINGS_SERVICE_RESPONSE_CODE,
+                            new Intent().putExtra(Constants.ACTUAL_MEETINGS_KEY, meetingsToString(serverMeetings)));
                     service.setActualMeetings(serverMeetings);
+                } else {
+                    Log.i(Constants.LOG_TAG, "Execute service request with notify");
+                    List<String> actualMeetings = service.getActualMeetings();
+                    checkMeetings(actualMeetings, serverMeetings);
                 }
             }
             return response;
         } catch (IOException e) {
             Log.i(Constants.LOG_TAG, "Connection error", e);
             return new ServiceResponse<>(ServiceResponse.FAIL, ServiceResponse.CONNECTION_ERROR_MASSAGE);
+        } catch (PendingIntent.CanceledException e) {
+            Log.i(Constants.LOG_TAG, "Could not send response to activity", e);
+            return new ServiceResponse<>(ServiceResponse.FAIL, ServiceResponse.CONNECTION_ERROR_MASSAGE);
         }
     }
 
-    private void notifyUser() {
+    private String meetingsToString(List<String> meetingsTitle) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String meetingTitle : meetingsTitle) {
+            stringBuilder.append(meetingTitle).append(";");
+        }
+        return stringBuilder.toString();
+    }
+
+    private void checkMeetings(List<String> actualMeetings, List<String> serverMeetings) {
+        if (serverMeetings.size() == actualMeetings.size()) {
+            for (String meeting : actualMeetings) {
+                if (!serverMeetings.contains(meeting)) {
+                    notifyUser(serverMeetings);
+                    break;
+                }
+            }
+        } else {
+            notifyUser(serverMeetings);
+        }
+    }
+
+    private void notifyUser(List<String> serverMeetings) {
         NotificationManager notificationManager = (NotificationManager) service
                 .getSystemService(Service.NOTIFICATION_SERVICE);
         Intent intent = new Intent(service, MainActivity.class);
@@ -75,6 +95,7 @@ public class MeetingsServiceRequest extends MeetingsRequest {
         Notification notification = new NotificationCompat.Builder(service).setContentInfo("Your meetings updated")
                 .setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pIntent).setAutoCancel(true).build();
         notificationManager.notify(1, notification);
+        service.setActualMeetings(serverMeetings);
     }
 
     @Override

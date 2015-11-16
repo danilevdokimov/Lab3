@@ -1,6 +1,7 @@
 package com.danil.asus.lab3;
 
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +15,10 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.danil.asus.lab3.service.UpdateService;
 import com.danil.asus.lab3.user.data.requests.impl.MeetingsRequest;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,8 +48,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateMeetings() {
-        MeetingsRequest meetingsRequest = new MeetingsRequest(this);
-        meetingsRequest.execute();
+//        MeetingsRequest meetingsRequest = new MeetingsRequest(this);
+//        meetingsRequest.execute();
+        PendingIntent pendingIntent = createPendingResult(0, new Intent(), 0);
+        Intent intent = new Intent(this, UpdateService.class).putExtra(Constants.PENDING_INTENT_KEY, pendingIntent);
+        startService(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Constants.MEETINGS_SERVICE_RESPONSE_CODE) {
+            initializeList(Arrays.asList(data.getStringExtra(Constants.ACTUAL_MEETINGS_KEY).split(";")));
+        }
     }
 
     private void showMeetingInfo(int position) {
